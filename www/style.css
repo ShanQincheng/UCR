@@ -1,5 +1,9 @@
+p {
+    margin: 0;
+}
+
 #homeWelcomeBox {
-    height: 50vh;
+    height: 40vh;
 }
 
 #homeWelcomePic {
@@ -7,6 +11,11 @@
     width: 100%;
 }
 
+#searchModule {
+    height: 40vh;
+}
+
 .img-detail {
     height: 30vh;
 }
+
