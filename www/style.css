@@ -1,21 +1,21 @@
-p {
-    margin: 0;
-}
-
-#homeWelcomeBox {
+#home-welcome-box {
     height: 40vh;
 }
 
-#homeWelcomePic {
+#home-welcome-pic {
     height: 100%;
     width: 100%;
 }
 
-#searchModule {
+#search-module {
     height: 40vh;
 }
 
 .img-detail {
     height: 30vh;
+}
+
+.small-gap{
+    margin: 0;
 }
 
