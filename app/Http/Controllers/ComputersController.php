@@ -45,7 +45,7 @@ class ComputersController extends Controller
 
     public function detail(Request $request)
     {
-        $computerID = $request->get('id', null);
+        $computerID = $request->get('ID', null);
         if ($computerID == null) {
             $computers = Computer::all();
 
@@ -54,9 +54,9 @@ class ComputersController extends Controller
             ]);
         }
 
-        $pc = Computer::where('id', $computerID)->get();
-        return view('rental', [
-            'pc-detail' => $pc,
+        $pc = Computer::where('id', $computerID)->first();
+        return view('pc-detail', [
+            'pcDetail' => $pc,
         ]);
     }
 
