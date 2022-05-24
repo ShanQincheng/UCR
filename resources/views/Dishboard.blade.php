@@ -1,3 +1,34 @@
+<?php
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+</head>
+
+
+
+
 
 <!DOCTYPE html>
 
@@ -64,7 +95,7 @@
 
 
 
-<!-- Addwines -->
+<!-- AddPC -->
 
 
 <div class="container mt-5">
@@ -192,120 +223,120 @@
         $stmt = $db->query ($query);
 
         while($row = $stmt->fetch (PDO::FETCH_ASSOC)){ ?>
-        <tr>
-            <td><?php echo $row ['itemID']; ?></td>
-            <td><?php echo $row ['itemName']; ?></td>
-            <td><?php echo $row ['itemType']; ?></td>
-            <td><?php echo $row ['itemQuantity']; ?></td>
-            <td><?php echo $row ['itemPrice']; ?></td>
-            <td><?php echo $row ['itemRegion']; ?></td>
+<tr>
+    <td><?php echo $row ['itemID']; ?></td>
+    <td><?php echo $row ['itemName']; ?></td>
+    <td><?php echo $row ['itemType']; ?></td>
+    <td><?php echo $row ['itemQuantity']; ?></td>
+    <td><?php echo $row ['itemPrice']; ?></td>
+    <td><?php echo $row ['itemRegion']; ?></td>
 
 
 
 
 
 
-            <!-- Editwines-->
+    <!-- Editwines-->
 
-            <td class="d-flex">
-                <button class="btn btn-primary m-1" data-toggle="modal" data-target="#editModal<?php echo $row['itemID']; ?>">Edit</button>
-                <!-- Deletewines -->
-                <a href="deleteWines.php?delete=<?php echo $row['itemID']; ?>" class="btn btn-danger m-1"> Delete</a>
-            </td>
-        </tr>
-
-
+    <td class="d-flex">
+        <button class="btn btn-primary m-1" data-toggle="modal" data-target="#editModal<?php echo $row['itemID']; ?>">Edit</button>
+        <!-- Deletewines -->
+        <a href="deleteWines.php?delete=<?php echo $row['itemID']; ?>" class="btn btn-danger m-1"> Delete</a>
+    </td>
+</tr>
 
 
 
 
 
-        <!-- Editwines Modal-->
+
+
+<!-- Editwines Modal-->
 
 
 
-        <div class="modal" id="editModal<?php echo $row['itemID']; ?>">
+<div class="modal" id="editModal<?php echo $row['itemID']; ?>">
 
-            <div class="modal-dialog">
+    <div class="modal-dialog">
 
-                <div class="modal-content">
+        <div class="modal-content">
 
-                    <div class="modal-header">
-                        <h4 class="modal-title" style="color:black">Update</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-
-
-
-
-                    <div class="modal-body">
-
-
-                        <form id='update' action="editWines.php" method="post">
-
-                            <input type="hidden" name="itemID" id="itemID"value="<?php echo $row['itemID']?>">
-
-
-                            <div class="form-group">
-                                <label style="color:black" for="itemName" class="form-label">Name</label>
-                                <input class="form-control" type="text" id="itemName" name="itemName" value="<?php echo $row['itemName']; ?>">
-                            </div>
-
-
-
-                            <div class="form-group">
-                                <label style="color:black" for="itemType" class="form-label">Select the type</label>
-                                <select class="form-select" id="itemType" name="itemType">
-                                    <option value="Red Wine"<?=$row['itemType'] == 'Red Wine' ? ' selected="selected"' : '';?>>Red Wine </option>
-                                    <option value="White Wine"<?=$row['itemType'] == 'White Wine' ? ' selected="selected"' : '';?>>White Wine </option>
-                                    <option value="Sparkling"<?=$row['itemType'] == 'Sparkling' ? ' selected="selected"' : '';?>>Sparkling </option>
-                                </select>
-                            </div>
-
-
-
-                            <div class="form-group">
-                                <label style="color:black" for="itemQuantity" class="form-label">Quantity</label>
-                                <input class="form-control" type="text" id="itemQuantity" name="itemQuantity" value="<?php echo $row['itemQuantity']; ?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label style="color:black" for="itemPrice" class="form-label">Price</label>
-                                <input type="text" id="itemPrice" name="itemPrice" class="form-control" value="<?php echo $row['itemPrice']; ?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label style="color:black" for="itemRegion" class="form-label">Select the region</label>
-                                <select class="form-select" id="itemRegion" name="itemRegion">
-                                    <option value="TAS"<?=$row['itemRegion'] == 'TAS' ? ' selected="selected"' : '';?>>TAS</option>
-                                    <option value="VIC"<?=$row['itemRegion'] == 'VIC' ? ' selected="selected"' : '';?>>VIC</option>
-                                    <option value="NSW"<?=$row['itemRegion'] == 'NSW' ? ' selected="selected"' : '';?>>NSW</option>
-                                    <option value="SA"<?=$row['itemRegion'] == 'SA' ? ' selected="selected"' : '';?>>SA</option>
-                                    <option value="QLD"<?=$row['itemRegion'] == 'QLD' ? ' selected="selected"' : '';?>>QLD</option>
-                                    <option value="NT"<?=$row['itemRegion'] == 'NT' ? ' selected="selected"' : '';?>>NT</option>
-                                    <option value="WA"<?=$row['itemRegion'] == 'WA' ? ' selected="selected"' : '';?>>WA</option>
-                                </select>
-                            </div>
-
-
-
-                            <div class="modal-footer d-flex justify-content-start">
-
-                                <button type="submit" class="btn btn-primary" name="update">Update</button>
-                                <a href="wines.php" type="button" class="btn btn-danger" data-dismiss="modal">Close</a>
-
-                            </div>
-
-
-                        </form>
-                    </div>
-
-
-
-
-                </div>
+            <div class="modal-header">
+                <h4 class="modal-title" style="color:black">Update</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
+
+
+
+
+            <div class="modal-body">
+
+
+                <form id='update' action="editWines.php" method="post">
+
+                    <input type="hidden" name="itemID" id="itemID"value="<?php echo $row['itemID']?>">
+
+
+                    <div class="form-group">
+                        <label style="color:black" for="itemName" class="form-label">Name</label>
+                        <input class="form-control" type="text" id="itemName" name="itemName" value="<?php echo $row['itemName']; ?>">
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label style="color:black" for="itemType" class="form-label">Select the type</label>
+                        <select class="form-select" id="itemType" name="itemType">
+                            <option value="Red Wine"<?=$row['itemType'] == 'Red Wine' ? ' selected="selected"' : '';?>>Red Wine </option>
+                            <option value="White Wine"<?=$row['itemType'] == 'White Wine' ? ' selected="selected"' : '';?>>White Wine </option>
+                            <option value="Sparkling"<?=$row['itemType'] == 'Sparkling' ? ' selected="selected"' : '';?>>Sparkling </option>
+                        </select>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label style="color:black" for="itemQuantity" class="form-label">Quantity</label>
+                        <input class="form-control" type="text" id="itemQuantity" name="itemQuantity" value="<?php echo $row['itemQuantity']; ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label style="color:black" for="itemPrice" class="form-label">Price</label>
+                        <input type="text" id="itemPrice" name="itemPrice" class="form-control" value="<?php echo $row['itemPrice']; ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label style="color:black" for="itemRegion" class="form-label">Select the region</label>
+                        <select class="form-select" id="itemRegion" name="itemRegion">
+                            <option value="TAS"<?=$row['itemRegion'] == 'TAS' ? ' selected="selected"' : '';?>>TAS</option>
+                            <option value="VIC"<?=$row['itemRegion'] == 'VIC' ? ' selected="selected"' : '';?>>VIC</option>
+                            <option value="NSW"<?=$row['itemRegion'] == 'NSW' ? ' selected="selected"' : '';?>>NSW</option>
+                            <option value="SA"<?=$row['itemRegion'] == 'SA' ? ' selected="selected"' : '';?>>SA</option>
+                            <option value="QLD"<?=$row['itemRegion'] == 'QLD' ? ' selected="selected"' : '';?>>QLD</option>
+                            <option value="NT"<?=$row['itemRegion'] == 'NT' ? ' selected="selected"' : '';?>>NT</option>
+                            <option value="WA"<?=$row['itemRegion'] == 'WA' ? ' selected="selected"' : '';?>>WA</option>
+                        </select>
+                    </div>
+
+
+
+                    <div class="modal-footer d-flex justify-content-start">
+
+                        <button type="submit" class="btn btn-primary" name="update">Update</button>
+                        <a href="wines.php" type="button" class="btn btn-danger" data-dismiss="modal">Close</a>
+
+                    </div>
+
+
+                </form>
+            </div>
+
+
+
+
         </div>
+    </div>
+</div>
 
 
 
@@ -318,9 +349,9 @@
 
 
 
-        <?php } ?>
-        </tbody>
-    </table>
+<?php } ?>
+</tbody>
+</table>
 
 
 
