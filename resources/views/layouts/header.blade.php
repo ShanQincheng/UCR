@@ -12,7 +12,8 @@
             <div class="navbar-nav">
                 <!-- Add the .active class on .nav-link to indicate the current page.
                      Please note that you should also add the aria-current attribute on the active .nav-link.-->
-                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                <a class="nav-link" aria-current="page" href="{{route('home')}}">Home</a>
+                <a class="nav-link" aria-current="page" href="{{route('index.rental')}}">Rental</a>
             </div>
         </div>
     </div>

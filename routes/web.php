@@ -16,6 +16,9 @@ use \App\Http\Controllers\ComputersController;
 
 Route::get('/', [ComputersController::class, 'index']) -> name('home');
 
+Route::get('rental', [ComputersController::class, 'show']) ->name('index.rental');
+Route::get('rental/detail', [ComputersController::class, 'detail']) -> name('detail.rental');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
