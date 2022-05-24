@@ -13,6 +13,7 @@
     </div>
 
     <div class="mt-4 container-md" id="search-module">
+        {{--  search operation      --}}
         <div class="row">
             <form>
                 <div class="input-group">
@@ -22,21 +23,19 @@
                 </div>
             </form>
         </div>
-        <div class="row text-center">
-            <div class="col gy-3">
-                <img src = "https://cdn.jsdelivr.net/gh/cat-imado/imado-s-live@main/UTAS/iMac.jpeg"
-                     class="img-fluid img-detail" alt = "New iMac">
-                <h2>New iMac</h2>
-                <p class="small-gap">Apple M1 chip, 256GB SSD, 8GB unified memory, 24-inch, Blue</p>
-                <p class="small-gap">$5 / day</p>
-            </div>
-            <div class="col gy-3">
-                <img src = "https://cdn.jsdelivr.net/gh/cat-imado/imado-s-live@main/UTAS/iMac-Older.jpeg"
-                     class="img-fluid img-detail" alt = "iMac 2018">
-                <h2>iMac 2018</h2>
-                <p class="small-gap">Intel Core i5, 1T SSD, 32GB memory, 27-inch, Silver</p>
-                <p class="small-gap">$5 / day</p>
-            </div>
+
+        <div class="row row-cols-3 text-center">
+            {{-- show in stock computers   --}}
+            @foreach($computers as $pc)
+                <div class="col gy-3">
+                    <img src = "{{$pc->picture}}"
+                         class="img-fluid img-detail" alt = "{{$pc->name}}">
+                    <h2>{{$pc->name}}</h2>
+                    <p class="small-gap">{{$pc->name}}.{{$pc->os}}.{{$pc->DISP_size}}</p>
+                    <p class="small-gap">{{$pc->rent}} / hour</p>
+                </div>
+            @endforeach
+        </div>
         </div>
     </div>
 @endsection
