@@ -42,6 +42,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Account|null $account
  */
 class User extends Authenticatable
 {
@@ -79,4 +80,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the account associated with the user.
+     */
+    public function account() {
+        return $this->hasOne(Account::class, 'user_id');
+    }
+
+    /**
+     * Get the privilege that owns the user.
+     */
+    public function privilege() {
+        return $this->belongsTo(Privilege::class, 'privilege_id');
+    }
 }

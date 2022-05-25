@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Privilege;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
            ComputerSeeder::class,
+            PrivilegeSeeder::class,
         ]);
     }
 }

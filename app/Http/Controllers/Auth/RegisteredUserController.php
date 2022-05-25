@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Account;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -47,6 +48,13 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'mobile' => $request->input('mobile'),
             'password' => Hash::make($request->password),
+        ]);
+
+        // automatically create an account when a new user sign himself up
+        $defaultBalance = 0;
+        Account::create([
+            'user_id' => $user->id,
+            'balance' => $defaultBalance,
         ]);
 
         event(new Registered($user));

@@ -1,4 +1,4 @@
-<link href="{{ asset('css/app.css?version=1') }}" rel="stylesheet">
+<link href="{{ asset('css/tw-app.css?version=1') }}" rel="stylesheet">
 
 <x-guest-layout>
     <x-auth-card>
