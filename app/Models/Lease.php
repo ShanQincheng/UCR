@@ -41,6 +41,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Lease whereDiscount($value)
  * @property int|null $staff_confirm
  * @method static \Illuminate\Database\Eloquent\Builder|Lease whereStaffConfirm($value)
+ * @property string|null $damage
+ * @property string|null $comment
+ * @method static \Illuminate\Database\Eloquent\Builder|Lease whereComment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Lease whereDamage($value)
  */
 class Lease extends Model
 {
@@ -59,6 +63,9 @@ class Lease extends Model
       'return_time',
       'fee',
       'fee_penalty',
+      'staff_confirm',
+      'damage',
+      'comment',
     ];
 
     /**

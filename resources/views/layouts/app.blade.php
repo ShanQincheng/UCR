@@ -22,7 +22,7 @@
     @include('layouts.header')
 </header>
 
-@yield('content');
+@yield('content')
 
 <!--footer-->
 <footer class="container">

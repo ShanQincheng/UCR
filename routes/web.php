@@ -26,6 +26,9 @@ Route::post('rental/detail', [RentComputerController::class, 'rent']) -> name('r
 Route::get('customer/renting', [CustomerController::class, 'showAllRenting']) -> name('renting.customer');
 Route::post('customer/return', [LeasesController::class, 'customerReturn']) -> name('return.customer');
 
+Route::get('manager/renting', [LeasesController::class, 'rentalManagement']) -> name('renting.manager');
+Route::post('manager/renting/endinglease', [LeasesController::class, 'endingLease']) -> name('ending-lease.manager');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

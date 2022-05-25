@@ -26,6 +26,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{{route('renting.customer')}}">Renting</a></li>
+                <li><a class="dropdown-item" href="{{route('renting.manager')}}">Manager Rental</a></li>
                 <li class="list-group-item-danger">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

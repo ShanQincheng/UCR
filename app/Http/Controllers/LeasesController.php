@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lease;
+use App\Models\Computer;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class LeasesController extends Controller
@@ -14,5 +16,67 @@ class LeasesController extends Controller
         Lease::find($leaseID)->update(['return_time' => time()]);
 
         return redirect(route('renting.customer'));
+    }
+
+    public function rentalManagement()
+    {
+        $notConfirmedLeases = Lease::whereNull('staff_confirm')->get();
+        $rentings = [];
+
+        foreach ($notConfirmedLeases as $lease) {
+            $pcInfo = Computer::find($lease->computer_id);
+            $user = User::find($lease->user_id);
+
+            $rentings[] = (object)[
+                'picture' => $pcInfo->picture,
+                'name' => $pcInfo->name,
+                'lease_id' => $lease->id,
+                'lease_holder' => $user->first_name.' '.$user->last_name,
+                'lease_holder_email' => $user->email,
+                'lease_holder_mobile' => $user->mobile,
+                'lease_id' => $lease->id,
+                'start_time' => $lease->start_time,
+                'end_time' => $lease->end_time,
+                'return_time' => $lease->return_time,
+                'insurance' => $lease->insurance,
+                'fee' => $lease -> fee,
+            ];
+        }
+
+        return view('manager.rental-manage', [
+            'rentings' => $rentings,
+        ]);
+    }
+
+    public function endingLease(Request $request) {
+        $leaseID = $request->input('lease-id');
+        $damage = $request->input('damage');
+        $comment = $request->input('comment');
+
+        $lease = Lease::find($leaseID);
+        // update lease status
+        $staffID = auth()->user()->id;
+        $lease ->update([
+            'damage' => $damage,
+            'comment' => $comment,
+            'staff_confirm' => $staffID,
+        ]);
+
+        // when a staff confirm the return of a computer before the leaseholder claim the return
+        // at this situation, the return_time will be null.
+        if ($lease->return_time == null) {
+            $lease ->update([
+                'return_time' => time(),
+            ]);
+        }
+
+        // return deposit to user
+        $balanceBefore = $lease->user->account->balance;
+        $balanceAfter = $balanceBefore + $lease->deposit;
+        $lease->user->account->update([
+            'balance' =>  $balanceAfter,
+        ]);
+
+        return redirect(route('renting.manager'));
     }
 }

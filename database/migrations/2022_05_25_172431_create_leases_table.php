@@ -21,6 +21,8 @@ class CreateLeasesTable extends Migration
             $table->integer('staff_confirm')->nullable();
             $table->float('fee');
             $table->float('fee_penalty')->default(0.0);
+            $table->string('damage')->nullable();
+            $table->string('comment')->nullable();
 
             $table->timestamps();
         });
