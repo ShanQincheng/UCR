@@ -39,6 +39,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Lease whereUserId($value)
  * @property int $discount
  * @method static \Illuminate\Database\Eloquent\Builder|Lease whereDiscount($value)
+ * @property int|null $staff_confirm
+ * @method static \Illuminate\Database\Eloquent\Builder|Lease whereStaffConfirm($value)
  */
 class Lease extends Model
 {

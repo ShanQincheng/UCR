@@ -27,11 +27,15 @@ class RentComputerController extends Controller
 
         $depositFee = 50;
         $insuranceFee = 0;
+        $discount = 0;
         if ($insurance == "on") {
             $insuranceFee = 10;
         }
+        if ($privilege != null) {
+            $discount = $privilege->discount;
+        }
 
-        $totalFee = $this->costs($depositFee, $insuranceFee, $period, $rent, $privilege);
+        $totalFee = $this->costs($depositFee, $insuranceFee, $period, $rent, $discount);
 
         $userAccount = $user->account;
         if ($userAccount->balance < $totalFee) {
@@ -41,7 +45,7 @@ class RentComputerController extends Controller
 
 
         $newLease = $this->createLease(
-            $userID, $computerID, $depositFee, $insuranceFee, $privilege->discount, $totalFee, $period);
+            $userID, $computerID, $depositFee, $insuranceFee, $discount, $totalFee, $period);
         $this->decreaseAccountBalance($userAccount, $totalFee);
 
         $pcDetail = Computer::find($computerID);
@@ -76,7 +80,7 @@ class RentComputerController extends Controller
         $account->update(['balance' => $balanceAfter]);
     }
 
-    public function costs($depositFee, $insuranceFee, $period, $rent, $privilege) {
+    public function costs($depositFee, $insuranceFee, $period, $rent, $discount) {
         // calculate normal costs
         $totalFee = $depositFee + $period * $rent;
 
@@ -84,7 +88,7 @@ class RentComputerController extends Controller
         $totalFee += $insuranceFee;
 
         // calculate discount
-        $totalFee -= $totalFee * $privilege-> discount / 100;
+        $totalFee -= $totalFee * $discount / 100;
 
         return $totalFee;
     }

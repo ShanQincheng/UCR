@@ -7,38 +7,12 @@ use Illuminate\Http\Request;
 
 class LeasesController extends Controller
 {
-    public function index()
+    public function customerReturn(Request $request)
     {
-        //
-    }
+        $leaseID = $request->input('lease-id');
 
-    public function create()
-    {
-        //
-    }
+        Lease::find($leaseID)->update(['return_time' => time()]);
 
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show(Lease $lease)
-    {
-        //
-    }
-
-    public function edit(Lease $lease)
-    {
-        //
-    }
-
-    public function update(Request $request, Lease $lease)
-    {
-        //
-    }
-
-    public function destroy(Lease $lease)
-    {
-        //
+        return redirect(route('renting.customer'));
     }
 }

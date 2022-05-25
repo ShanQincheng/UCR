@@ -14,7 +14,7 @@
         {{-- show in stock computers   --}}
         @foreach($computers as $pc)
             <div class="col gy-3">
-                <div class="card">
+                <div class="card h-100">
                     <img src = "{{$pc->picture}}"
                          class="card-img-top" alt = "{{$pc->name}}">
                     <div class="card-body">

@@ -47,6 +47,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read \Illuminate\Database\Eloquent\Collection|User[] $lease
  * @property-read int|null $lease_count
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePrivilegeId($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Lease[] $leases
+ * @property-read int|null $leases_count
  */
 class User extends Authenticatable
 {
@@ -102,7 +104,7 @@ class User extends Authenticatable
     /**
      * Get the leases for the user.
      */
-    public function lease() {
-        return $this->hasMany(User::class, 'user_id');
+    public function leases() {
+        return $this->hasMany(Lease::class, 'user_id');
     }
 }
