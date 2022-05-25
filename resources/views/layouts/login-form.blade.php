@@ -25,7 +25,7 @@
         <input  class="form-control" id="password" type="password" name="password" required="required" autocomplete="current-password">
     </div>
 
-    <div class="mt-4">
+    <div class="mt-4  d-grid gap-2 d-md-flex justify-content-md-end">
         <a class="" href="{{route('register')}}">
             Sign Up
         </a>

@@ -21,6 +21,7 @@
                       method="POST" action="{{route('rent.rental')}}">
                     @csrf
                     <div class="col-12">
+                        <input type="hidden" name="computer-id" value="{{$pcDetail->id}}">
                         <input type="hidden" name="rent" value="{{$pcDetail->rent}}">
                         <select class="form-select form-select-lg mb-3" id="period" name="period">
                             <option selected>Choose rent period</option>
