@@ -21,9 +21,13 @@ return new class extends Migration
             $table->string('mobile')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->integer('privilege');
+            $table->integer('privilege')->nullable();
             $table->rememberToken();
             $table->timestamps();
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->renameColumn('privilege', 'privilege_id');
         });
     }
 

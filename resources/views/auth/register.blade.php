@@ -1,3 +1,5 @@
+<link href="{{ asset('css/tw-app.css?version=1') }}" rel="stylesheet">
+
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
