@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlackHistory;
 use App\Models\Computer;
+use App\Models\Privilege;
+use App\Models\User;
 use App\Models\Wines;
+use DB;
 use Illuminate\Http\Request;
 
 class ManagerController extends Controller
@@ -55,6 +59,71 @@ class ManagerController extends Controller
     public function deleteComputer($toDelPCID) {
         Computer::find($toDelPCID)->delete();
         return json_encode("delete success");
+    }
+
+    public function staffUserManagement() {
+        $blackUserIDs = BlackHistory::selectRaw('user_id')
+            ->groupBy('user_id')
+            ->having(DB::raw('count(*)'), '>', 3)
+            ->get();
+        $blackUsers = User::whereIn('id', $blackUserIDs)->get();
+
+        $privilegeCustomer = Privilege::select(['id', 'name'])->where('name', 'customer')->get();
+        $customers = User::whereIn('privilege_id', $privilegeCustomer->pluck('id'))->get();
+
+        return view('manager.staff-user', [
+            'blackUsers' => $blackUsers,
+            'customers' => $customers,
+        ]);
+    }
+
+    public function adminUserManagement() {
+        $blackUserIDs = BlackHistory::selectRaw('user_id')
+            ->groupBy('user_id')
+            ->having(DB::raw('count(*)'), '>', 3)
+            ->get();
+        $blackUsers = User::whereIn('id', $blackUserIDs)->get();
+
+        $privilegeCustomer = Privilege::select('id')->whereIn('name', ['customer', 'staff'])->get();
+        $users = User::whereIn('privilege_id', $privilegeCustomer)->get();
+
+        foreach ($users as $user) {
+            $user->privilege_name = Privilege::find($user->privilege_id)->name;
+        }
+        return view('manager.admin-user', [
+            'blackUsers' => $blackUsers,
+            'users' => $users,
+        ]);
+    }
+
+    public function addStaff(Request $request) {
+        $customerUserID = $request->input('customer-id');
+        $privilegeStaff = Privilege::select('id')->where('name', 'staff')->first();
+
+        User::find($customerUserID)->update([
+            'privilege_id' => $privilegeStaff->id,
+        ]);
+
+        return redirect(route('users.admin.manager'));
+    }
+
+    public function removeStaff(Request $request) {
+        $staffUserID = $request->input('staff-id');
+        $privilegeCustomer = Privilege::select('id')->where('name', 'customer')->first();
+
+        User::find($staffUserID)->update([
+            'privilege_id' => $privilegeCustomer->id,
+        ]);
+
+        return redirect(route('users.admin.manager'));
+    }
+
+    public function removeBlackUser(Request $request) {
+        $blackUserID = $request->input('black-user-id');
+
+        BlackHistory::where('user_id', $blackUserID)->delete();
+
+        return redirect(route('users.admin.manager'));
     }
 
 }

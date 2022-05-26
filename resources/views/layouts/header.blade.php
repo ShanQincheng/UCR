@@ -32,6 +32,8 @@
                             <li><a class="dropdown-item" href="{{route('renting.customer')}}">Renting</a></li>
                             <li><a class="dropdown-item" href="{{route('renting.manager')}}">Manager Rentals</a></li>
                             <li><a class="dropdown-item" href="{{route('computers.manager')}}">Manager Computers</a></li>
+                            <li><a class="dropdown-item" href="{{route('users.staff.manager')}}">Staff Users Management</a></li>
+                            <li><a class="dropdown-item" href="{{route('users.admin.manager')}}">Admin Users Management</a></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlackHistory;
 use App\Models\Lease;
 use App\Models\Computer;
 use App\Models\User;
@@ -67,6 +68,14 @@ class LeasesController extends Controller
         if ($lease->return_time == null) {
             $lease ->update([
                 'return_time' => time(),
+            ]);
+        }
+
+        // if damage exists, put a new black record for the user with the lease
+        if ($damage != "No Damage") {
+            BlackHistory::create([
+                'user_id' => $lease->user_id,
+                'lease_id' => $lease->id,
             ]);
         }
 
