@@ -18,6 +18,7 @@
                         <th scope="col">Rental Return Time</th>
                         <th scope="col">Insurance Payment</th>
                         <th scope="col">Total Payment</th>
+                        <th scope="col">Status</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,6 +43,17 @@
                             </td>
                             <td>{{$renting->insurance}}</td>
                             <td>{{$renting->fee}}</td>
+                            <td>
+                                @if($renting->return_time == null)
+                                    <span class="mt-3 badge rounded-pill text-bg-danger">Renting</span>
+                                @endif
+                                @if($renting->return_time != null && $renting->staff_confirm == null)
+                                    <span class="mt-3 badge rounded-pill text-bg-info">Waiting Staff Confirmation</span>
+                                @endif
+                                @if($renting->return_time != null && $renting->staff_confirm != null)
+                                    <span class="mt-3 badge rounded-pill text-bg-success">Lease Terminate</span>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

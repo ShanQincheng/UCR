@@ -42,7 +42,7 @@ class UserController extends Controller
 
     protected function userRentalsHistory()
     {
-        $allLeases = Lease::where('user_id', auth()->user()->id)->get();
+        $allLeases = Lease::where('user_id', auth()->user()->id)->orderByDesc('start_time')->get();
         $rentings = [];
 
         foreach ($allLeases as $lease) {
@@ -60,6 +60,7 @@ class UserController extends Controller
                 'start_time' => $lease->start_time,
                 'end_time' => $lease->end_time,
                 'return_time' => $lease->return_time,
+                'staff_confirm' => $lease->staff_confirm,
                 'insurance' => $lease->insurance,
                 'fee' => $lease -> fee,
             ];

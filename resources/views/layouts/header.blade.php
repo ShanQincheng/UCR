@@ -32,7 +32,7 @@
                             <li><a class="dropdown-item" href="{{route('renting.customer')}}">Renting</a></li>
                             <li><a class="dropdown-item" href="{{route('renting.manager')}}">Manager Rentals</a></li>
                             <li><a class="dropdown-item" href="{{route('computers.manager')}}">Manager Computers</a></li>
-                            <li class="list-group-item-danger">
+                            <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <a class="dropdown-item" href="{{route('logout')}}"
