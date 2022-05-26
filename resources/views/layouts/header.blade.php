@@ -20,20 +20,21 @@
 
     <!-- Authenticated Dropdown -->
     @auth
-        <div class="container-fluid float-right">
+        <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                <ul class="navbar-nav ms-auto me-4">
-                    <li class="nav-item dropdown">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropstart">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->last_name.' '.Auth::user()->first_name }}
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{{route('user.account')}}">Account</a></li>
                             <li><a class="dropdown-item" href="{{route('renting.customer')}}">Renting</a></li>
                             <li><a class="dropdown-item" href="{{route('renting.manager')}}">Manager Rentals</a></li>
                             <li><a class="dropdown-item" href="{{route('computers.manager')}}">Manager Computers</a></li>
                             <li><a class="dropdown-item" href="{{route('users.staff.manager')}}">Staff Users Management</a></li>
                             <li><a class="dropdown-item" href="{{route('users.admin.manager')}}">Admin Users Management</a></li>
+                            <li><a class="dropdown-item" href="{{route('dashboard.admin.manager')}}">Admin Dashboard</a></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BlackHistory;
 use App\Models\Computer;
+use App\Models\Lease;
 use App\Models\Privilege;
 use App\Models\User;
 use App\Models\Wines;
@@ -126,4 +127,30 @@ class ManagerController extends Controller
         return redirect(route('users.admin.manager'));
     }
 
+    public function adminDashboard() {
+        $privilegeStudent = Privilege::select('id')->where('name', 'student')->first();
+        $privilegeStaff = Privilege::select('id')->where('name', 'customer')->first();
+        $privilegeAdmin = Privilege::select('id')->where('name', 'admin')->first();
+
+        $studentNum = User::where('privilege_id', $privilegeStudent->id)->get()->count();
+        $staffNum = User::where('privilege_id', $privilegeStaff->id)->get()->count();
+        $adminNum = User::where('privilege_id', $privilegeAdmin->id)->get()->count();
+
+        $blackUserNum = BlackHistory::selectRaw('user_id')
+            ->groupBy('user_id')
+            ->having(DB::raw('count(*)'), '>', 3)
+            ->get()->count();
+
+        $computersNum = Computer::count();
+        $rentingComputersNum = Lease::whereNull('return_time')->count();
+
+        return view('manager.admin-dashboard', [
+            'studentNum' => $studentNum,
+            'staffNum' => $staffNum,
+            'adminNum' => $adminNum,
+            'blackUserNum' => $blackUserNum,
+            'computersNum' => $computersNum,
+            'rentingComputersNum' => $rentingComputersNum,
+        ]);
+    }
 }

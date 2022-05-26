@@ -732,6 +732,9 @@ select {
 .-mr-2 {
   margin-right: -0.5rem;
 }
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
 .block {
   display: block;
 }
@@ -797,6 +800,9 @@ select {
 }
 .w-6 {
   width: 1.5rem;
+}
+.w-10 {
+  width: 2.5rem;
 }
 .max-w-xl {
   max-width: 36rem;
@@ -998,6 +1004,10 @@ select {
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
+}
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 .pt-5 {
   padding-top: 1.25rem;
