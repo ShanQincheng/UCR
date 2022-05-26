@@ -20,23 +20,33 @@
 
     <!-- Authenticated Dropdown -->
     @auth
-        <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ Auth::user()->last_name.' '.Auth::user()->first_name }}
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{{route('renting.customer')}}">Renting</a></li>
-                <li><a class="dropdown-item" href="{{route('renting.manager')}}">Manager Rental</a></li>
-                <li class="list-group-item-danger">
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <a class="dropdown-item" href="{{route('logout')}}"
-                           onclick='this.parentNode.submit(); return false;'>
-                            Log Out
+        <div class="container-fluid float-right">
+            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <ul class="navbar-nav ms-auto me-4">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ Auth::user()->last_name.' '.Auth::user()->first_name }}
                         </a>
-                    </form>
-                </li>
-            </ul>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{route('user.account')}}">Account</a></li>
+                            <li><a class="dropdown-item" href="{{route('renting.customer')}}">Renting</a></li>
+                            <li><a class="dropdown-item" href="{{route('renting.manager')}}">Manager Rentals</a></li>
+                            <li><a class="dropdown-item" href="{{route('computers.manager')}}">Manager Computers</a></li>
+                            <li><a class="dropdown-item" href="{{route('users.staff.manager')}}">Staff Users Management</a></li>
+                            <li><a class="dropdown-item" href="{{route('users.admin.manager')}}">Admin Users Management</a></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <a class="dropdown-item" href="{{route('logout')}}"
+                                       onclick='this.parentNode.submit(); return false;'>
+                                        Log Out
+                                    </a>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     @endauth
 </nav>

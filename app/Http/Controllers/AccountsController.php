@@ -3,42 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AccountsController extends Controller
 {
-    public function index()
+    public function topUp(Request $request)
     {
-        //
-    }
+        $rechargeAmount = $request->input('recharge-amount');
 
-    public function create()
-    {
-        //
-    }
+        User::find(auth()->user()->id)->account->increment('balance', $rechargeAmount);
 
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show(Account $account)
-    {
-        //
-    }
-
-    public function edit(Account $account)
-    {
-        //
-    }
-
-    public function update(Request $request, Account $account)
-    {
-        //
-    }
-
-    public function destroy(Account $account)
-    {
-        //
+        return redirect(route('user.account'));
     }
 }

@@ -46,17 +46,24 @@ class Computer extends Model
 {
     use HasFactory;
 
+    protected $table = 'computers';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-//    protected $fillable = [
-//        'first_name',
-//        'last_name',
-//        'email',
-//        'mobile',
-//        'password',
-//        'privilege',
-//    ];
+    protected $fillable = [
+        'type',
+        'name',
+        'brand',
+        'picture',
+        'rent',
+        'stocks',
+        'os',
+        'DISP_size',
+        'RAM',
+        'USB_port_num',
+        'HDMI_port',
+    ];
 }

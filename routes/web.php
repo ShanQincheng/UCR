@@ -5,6 +5,10 @@ use \App\Http\Controllers\ComputersController;
 use \App\Http\Controllers\RentComputerController;
 use \App\Http\Controllers\CustomerController;
 use \App\Http\Controllers\LeasesController;
+use \App\Http\Controllers\UserController;
+use \App\Http\Controllers\AccountsController;
+use \App\Http\Controllers\ManagerController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +32,19 @@ Route::post('customer/return', [LeasesController::class, 'customerReturn']) -> n
 
 Route::get('manager/renting', [LeasesController::class, 'rentalManagement']) -> name('renting.manager');
 Route::post('manager/renting/endinglease', [LeasesController::class, 'endingLease']) -> name('ending-lease.manager');
+Route::get('manager/computers', [ManagerController::class, 'index']) -> name('computers.manager');
+Route::post('manager/computers/add', [ManagerController::class, 'addComputer']) -> name('add.computers.manager');
+Route::post('manager/computers/edit/{ID}', [ManagerController::class, 'editComputer']) -> name('edit.computers.manager');
+Route::delete('manager/computers/delete/{ID}', [ManagerController::class, 'deleteComputer']) -> name('delete.computers.manager');
+Route::get('manager/staff/users', [ManagerController::class, 'staffUserManagement']) -> name('users.staff.manager');
+Route::get('manager/admin/users', [ManagerController::class, 'adminUserManagement']) -> name('users.admin.manager');
+Route::post('manager/admin/users/add/staff', [ManagerController::class, 'addStaff']) -> name('staff.add.users.admin.manager');
+Route::post('manager/admin/users/remove/staff', [ManagerController::class, 'removeStaff']) -> name('staff.remove.users.admin.manager');
+Route::post('manager/admin/users/remove/blackUser', [ManagerController::class, 'removeBlackUser']) -> name('blackUser.remove.users.admin.manager');
+
+Route::get('user/account', [UserController::class, 'userInfo']) -> name('user.account');
+Route::post('user/account/edit', [UserController::class, 'editUserInfo']) -> name('edit.user.account');
+Route::post('user/account/recharge', [AccountsController::class, 'topUp']) -> name('recharge.user.account');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
