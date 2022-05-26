@@ -16,3 +16,5 @@ mix.js('resources/js/app.js', 'public/js').postCss('resources/css/tw-app.css', '
     require('tailwindcss'),
     require('autoprefixer'),
 ]);
+
+mix.js('resources/js/manage-computers.js', 'public/js');

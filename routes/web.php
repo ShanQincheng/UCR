@@ -7,6 +7,7 @@ use \App\Http\Controllers\CustomerController;
 use \App\Http\Controllers\LeasesController;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\AccountsController;
+use \App\Http\Controllers\ManagerController;
 
 
 /*
@@ -31,6 +32,10 @@ Route::post('customer/return', [LeasesController::class, 'customerReturn']) -> n
 
 Route::get('manager/renting', [LeasesController::class, 'rentalManagement']) -> name('renting.manager');
 Route::post('manager/renting/endinglease', [LeasesController::class, 'endingLease']) -> name('ending-lease.manager');
+Route::get('manager/computers', [ManagerController::class, 'index']) -> name('computers.manager');
+Route::post('manager/computers/add', [ManagerController::class, 'addComputer']) -> name('add.computers.manager');
+Route::post('manager/computers/edit/{ID}', [ManagerController::class, 'editComputer']) -> name('edit.computers.manager');
+Route::delete('manager/computers/delete/{ID}', [ManagerController::class, 'deleteComputer']) -> name('delete.computers.manager');
 
 Route::get('user/account', [UserController::class, 'userInfo']) -> name('user.account');
 Route::post('user/account/edit', [UserController::class, 'editUserInfo']) -> name('edit.user.account');
