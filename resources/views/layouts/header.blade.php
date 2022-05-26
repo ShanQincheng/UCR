@@ -25,6 +25,7 @@
                 {{ Auth::user()->last_name.' '.Auth::user()->first_name }}
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{{route('user.account')}}">Account</a></li>
                 <li><a class="dropdown-item" href="{{route('renting.customer')}}">Renting</a></li>
                 <li><a class="dropdown-item" href="{{route('renting.manager')}}">Manager Rental</a></li>
                 <li class="list-group-item-danger">

@@ -64,7 +64,6 @@
                     </tbody>
                 </table>
             </div>
-
         @include('manager.ending-leaase-modal')
     @endif
 @endsection

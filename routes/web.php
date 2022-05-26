@@ -5,6 +5,9 @@ use \App\Http\Controllers\ComputersController;
 use \App\Http\Controllers\RentComputerController;
 use \App\Http\Controllers\CustomerController;
 use \App\Http\Controllers\LeasesController;
+use \App\Http\Controllers\UserController;
+use \App\Http\Controllers\AccountsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +31,10 @@ Route::post('customer/return', [LeasesController::class, 'customerReturn']) -> n
 
 Route::get('manager/renting', [LeasesController::class, 'rentalManagement']) -> name('renting.manager');
 Route::post('manager/renting/endinglease', [LeasesController::class, 'endingLease']) -> name('ending-lease.manager');
+
+Route::get('user/account', [UserController::class, 'userInfo']) -> name('user.account');
+Route::post('user/account/edit', [UserController::class, 'editUserInfo']) -> name('edit.user.account');
+Route::post('user/account/recharge', [AccountsController::class, 'topUp']) -> name('recharge.user.account');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
