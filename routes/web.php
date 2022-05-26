@@ -41,6 +41,7 @@ Route::get('manager/admin/users', [ManagerController::class, 'adminUserManagemen
 Route::post('manager/admin/users/add/staff', [ManagerController::class, 'addStaff']) -> name('staff.add.users.admin.manager');
 Route::post('manager/admin/users/remove/staff', [ManagerController::class, 'removeStaff']) -> name('staff.remove.users.admin.manager');
 Route::post('manager/admin/users/remove/blackUser', [ManagerController::class, 'removeBlackUser']) -> name('blackUser.remove.users.admin.manager');
+Route::get('manager/admin/dashboard', [ManagerController::class, 'adminDashboard']) -> name('dashboard.admin.manager');
 
 Route::get('user/account', [UserController::class, 'userInfo']) -> name('user.account');
 Route::post('user/account/edit', [UserController::class, 'editUserInfo']) -> name('edit.user.account');
