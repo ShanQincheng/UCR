@@ -17,7 +17,7 @@
                     @foreach($blackUsers as $u)
                         <tr>
                             <th scope="row">{{$loop->index + 1}}</th>
-                            <td>{{$u->name}}</td>
+                            <td>{{$u->first_name.' '.$u->last_name}}</td>
                             <td>{{$u->email}}</td>
                             <td>{{$u->mobile}}</td>
                         </tr>
@@ -41,7 +41,7 @@
                     @foreach($customers as $c)
                         <tr>
                             <th scope="row">{{$loop->index + 1}}</th>
-                            <td>{{$c->name}}</td>
+                            <td>{{$c->first_name.' '.$c->last_name}}</td>
                             <td>{{$c->email}}</td>
                             <td>{{$c->mobile}}</td>
                         </tr>

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Account;
 use App\Models\Computer;
 use App\Models\Lease;
 use App\Models\User;
@@ -47,6 +46,10 @@ class RentComputerController extends Controller
         $newLease = $this->createLease(
             $userID, $computerID, $depositFee, $insuranceFee, $discount, $totalFee, $period);
         $this->decreaseAccountBalance($userAccount, $totalFee);
+        $inStock = $this->decreaseComputerStocks($computerID);
+        if (! $inStock) {
+            return back() -> with('warningMsg', 'No more stocks, already Sold out');
+        }
 
         $pcDetail = Computer::find($computerID);
 
@@ -78,6 +81,16 @@ class RentComputerController extends Controller
         $balanceAfter = $balanceBefore - $fee;
 
         $account->update(['balance' => $balanceAfter]);
+    }
+
+    protected function decreaseComputerStocks($computerID) {
+        $stocks = Computer::find($computerID)->stocks;
+        if ($stocks <= 0) {
+            return false;
+        }
+
+        Computer::find($computerID)->decrement('stocks');
+        return true;
     }
 
     public function costs($depositFee, $insuranceFee, $period, $rent, $discount) {

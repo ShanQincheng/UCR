@@ -106,4 +106,24 @@ class User extends Authenticatable
     public function leases() {
         return $this->hasMany(Lease::class, 'user_id');
     }
+
+    public function isSuperAdmin() {
+        return $this->privilege->isSuperAdmin();
+    }
+
+    public function isCustomer() {
+        return $this->privilege->isCustomer();
+    }
+
+    public function isStaffOrAdmin() {
+       return $this->privilege->isStaffOrAdmin();
+    }
+
+    public function isStaff() {
+        return $this->privilege->isStaff();
+    }
+
+    public function isAdmin() {
+        return $this->privilege->isAdmin();
+    }
 }

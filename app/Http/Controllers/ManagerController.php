@@ -10,10 +10,13 @@ use App\Models\User;
 use App\Models\Wines;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ManagerController extends Controller
 {
     public function index() {
+        Gate::authorize('visit-manage-computers-page');
+
         $computers = Computer::all();
 
         return view('manager.computer', [
@@ -58,11 +61,19 @@ class ManagerController extends Controller
     }
 
     public function deleteComputer($toDelPCID) {
+        if (Computer::find($toDelPCID)->renting()) {
+            $computerName = Computer::find($toDelPCID)->name;
+            return back()->with('warningMsg',
+                $computerName.' has been rented out. Please confirm return first then can do the delete.');
+        }
+
         Computer::find($toDelPCID)->delete();
         return json_encode("delete success");
     }
 
     public function staffUserManagement() {
+        Gate::authorize('visit-staff-manage-users-page');
+
         $blackUserIDs = BlackHistory::selectRaw('user_id')
             ->groupBy('user_id')
             ->having(DB::raw('count(*)'), '>', 3)
@@ -79,6 +90,8 @@ class ManagerController extends Controller
     }
 
     public function adminUserManagement() {
+        Gate::authorize('visit-admin-manage-users-page');
+
         $blackUserIDs = BlackHistory::selectRaw('user_id')
             ->groupBy('user_id')
             ->having(DB::raw('count(*)'), '>', 3)
@@ -128,6 +141,8 @@ class ManagerController extends Controller
     }
 
     public function adminDashboard() {
+        Gate::authorize('visit-admin-dashboard-page');
+
         $privilegeStudent = Privilege::select('id')->where('name', 'student')->first();
         $privilegeStaff = Privilege::select('id')->where('name', 'customer')->first();
         $privilegeAdmin = Privilege::select('id')->where('name', 'admin')->first();

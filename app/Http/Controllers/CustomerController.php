@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Computer;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 
 class CustomerController extends Controller
 {
     public function showAllRenting()
     {
-        $userID = auth()->user()->id;
+        Gate::authorize('visit-return-rental-page');
+
+        $userID = auth()->id();
 
         $ongoingLeases = User::find($userID)->leases()->whereNull('staff_confirm')->get();
         $rentings = [];

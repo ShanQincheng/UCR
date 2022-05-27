@@ -7,6 +7,7 @@ use App\Models\Lease;
 use App\Models\Computer;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class LeasesController extends Controller
 {
@@ -21,6 +22,8 @@ class LeasesController extends Controller
 
     public function rentalManagement()
     {
+        Gate::authorize('visit-manage-rental-page');
+
         $notConfirmedLeases = Lease::whereNull('staff_confirm')->get();
         $rentings = [];
 
@@ -53,6 +56,7 @@ class LeasesController extends Controller
         $leaseID = $request->input('lease-id');
         $damage = $request->input('damage');
         $comment = $request->input('comment');
+        $penalty = $request->input('penalty');
 
         $lease = Lease::find($leaseID);
         // update lease status
@@ -68,6 +72,7 @@ class LeasesController extends Controller
         if ($lease->return_time == null) {
             $lease ->update([
                 'return_time' => time(),
+                'fee_penalty' => $penalty,
             ]);
         }
 
@@ -81,7 +86,7 @@ class LeasesController extends Controller
 
         // return deposit to user
         $balanceBefore = $lease->user->account->balance;
-        $balanceAfter = $balanceBefore + $lease->deposit;
+        $balanceAfter = $balanceBefore + $lease->deposit - $penalty;
         $lease->user->account->update([
             'balance' =>  $balanceAfter,
         ]);

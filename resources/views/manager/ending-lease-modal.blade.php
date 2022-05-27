@@ -11,11 +11,17 @@
                 <div class="modal-body">
                     <input type="hidden" name="lease-id" value="{{$renting->lease_id}}">
 
-                    <select class="form-select" aria-label="Default select example" name="damage">
-                        <option value="no damage" selected>No Damage</option>
-                        <option value="minor damage">Minor Damage</option>
-                        <option value="major damage">Major Damage</option>
-                    </select>
+                    <div class="input-group mb-3">
+                        <select class="form-select" aria-label="Default select example" name="damage">
+                            <option value="no damage" selected>No Damage</option>
+                            <option value="minor damage">Minor Damage</option>
+                            <option value="major damage">Major Damage</option>
+                        </select>
+
+                        <label class="input-group-text" for="penalty $" class="form-label">Penalty $</label>
+                        <input id="penalty" name="penalty" type="text" class="form-control"
+                               aria-label="Amount (to the nearest dollar)" value="0">
+                    </div>
 
                     <div class="mb-3">
                         <label for="comment" class="form-label">Comments</label>

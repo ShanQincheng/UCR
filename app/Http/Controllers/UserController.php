@@ -63,6 +63,7 @@ class UserController extends Controller
                 'staff_confirm' => $lease->staff_confirm,
                 'insurance' => $lease->insurance,
                 'fee' => $lease -> fee,
+                'penalty' => $lease->fee_penalty,
             ];
         }
 

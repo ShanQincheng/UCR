@@ -40,4 +40,24 @@ class Privilege extends Model
     {
         return $this->hasMany(User::class, 'privilege_id');
     }
+
+    public function isCustomer() {
+        return $this->name == "customer" || $this->name == 'student';
+    }
+
+    public function isStaffOrAdmin() {
+        return $this->name == "staff" || $this->name == 'admin';
+    }
+
+    public function isStaff() {
+        return $this->name == "staff";
+    }
+
+    public function isAdmin() {
+        return $this->name == "admin";
+    }
+
+    public function isSuperAdmin() {
+        return $this->name == "super-admin";
+    }
 }

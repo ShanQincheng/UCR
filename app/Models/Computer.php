@@ -66,4 +66,13 @@ class Computer extends Model
         'USB_port_num',
         'HDMI_port',
     ];
+
+    public function renting() {
+        if (Lease::where('computer_id', $this->id)
+                ->get()->count() > 0) {
+            return true;
+        }
+
+        return false;
+    }
 }

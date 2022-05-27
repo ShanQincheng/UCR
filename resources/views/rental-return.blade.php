@@ -10,6 +10,7 @@
         </div>
     @else
         <div class="container">
+            <p class="fs-1 fw-bolder text-center">Returning the Rental</p>
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 @foreach($rentings as $renting)
                 <div class="col">

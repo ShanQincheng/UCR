@@ -17,30 +17,32 @@
                 </p>
                 <p class="fw-light pt-1">More than {{$pcDetail->stocks}} available</p>
 
-                <form class="row row-cols-lg-auto g-3 align-items-center my-5"
-                      method="POST" action="{{route('rent.rental')}}">
-                    @csrf
-                    <div class="col-12">
-                        <input type="hidden" name="computer-id" value="{{$pcDetail->id}}">
-                        <input type="hidden" name="rent" value="{{$pcDetail->rent}}">
-                        <select class="form-select form-select-lg mb-3" id="period" name="period">
-                            <option selected>Choose rent period</option>
-                            <option value="1.5">1.5</option>
-                            <option value="2.0">2.0</option>
-                            <option value="2.5">2.5</option>
-                            <option value="3.0">3.0</option>
-                            <option value="3.5">3.5</option>
-                            <option value="4.0">4.0</option>
-                            <option value="4.5">4.5</option>
-                            <option value="5.0">5.0</option>
-                        </select>
+                @auth
+                    <form class="row row-cols-lg-auto g-3 align-items-center my-5"
+                          method="POST" action="{{route('rent.rental')}}">
+                        @csrf
+                        <div class="col-12">
+                            <input type="hidden" name="computer-id" value="{{$pcDetail->id}}">
+                            <input type="hidden" name="rent" value="{{$pcDetail->rent}}">
+                            <select class="form-select form-select-lg mb-3" id="period" name="period">
+                                <option selected>Choose rent period</option>
+                                <option value="1.5">1.5</option>
+                                <option value="2.0">2.0</option>
+                                <option value="2.5">2.5</option>
+                                <option value="3.0">3.0</option>
+                                <option value="3.5">3.5</option>
+                                <option value="4.0">4.0</option>
+                                <option value="4.5">4.5</option>
+                                <option value="5.0">5.0</option>
+                            </select>
 
-                        <label class="form-check-label" for="insurance">insurance</label>
-                        <input class="form-check-input" type="checkbox" id="insurance" name="insurance">
+                            <label class="form-check-label" for="insurance">insurance</label>
+                            <input class="form-check-input" type="checkbox" id="insurance" name="insurance">
 
-                        <button type="submit" class="btn btn-primary ms-3">Rent</button>
-                    </div>
-                </form>
+                            <button type="submit" class="btn btn-primary ms-3">Rent</button>
+                        </div>
+                    </form>
+                @endauth
             </div>
         </div>
     </div>
