@@ -18,7 +18,7 @@ window.deletePC = function (pcID) {
       location.reload();
     },
     error: function error(xhr, status, _error) {
-      alert(xhr);
+      location.reload();
     }
   });
 };

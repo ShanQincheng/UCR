@@ -10,9 +10,7 @@ class CustomerController extends Controller
 {
     public function showAllRenting()
     {
-        if (! Gate::allows('visit-return-rental-page')) {
-            abort(403);
-        }
+        Gate::authorize('visit-return-rental-page');
 
         $userID = auth()->id();
 

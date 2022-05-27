@@ -108,37 +108,22 @@ class User extends Authenticatable
     }
 
     public function isSuperAdmin() {
-        $superAdminPrivilegeID = Privilege::select('id')
-            ->where('name', 'super-admin')->get();
-
-        return $superAdminPrivilegeID->contains('id', $this->privilege_id);
+        return $this->privilege->isSuperAdmin();
     }
 
     public function isCustomer() {
-        $customerPrivilegeIDs = Privilege::select('id')
-            ->whereIn('name', ['student', 'customer'])->get();
-
-        return $customerPrivilegeIDs->contains('id', $this->privilege_id);
+        return $this->privilege->isCustomer();
     }
 
     public function isStaffOrAdmin() {
-        $staffAndAdminPrivilegeIDs = Privilege::select('id')
-            ->whereIn('name', ['staff', 'admin'])->get();
-
-        return $staffAndAdminPrivilegeIDs->contains('id', $this->privilege_id);
+       return $this->privilege->isStaffOrAdmin();
     }
 
     public function isStaff() {
-        $staffPrivilegeID = Privilege::select('id')
-            ->where('name', 'staff')->get();
-
-        return $staffPrivilegeID->contains('id', $this->privilege_id);
+        return $this->privilege->isStaff();
     }
 
     public function isAdmin() {
-        $adminPrivilegeID = Privilege::select('id')
-            ->where('name', 'admin')->get();
-
-        return $adminPrivilegeID->contains('id', $this->privilege_id);
+        return $this->privilege->isAdmin();
     }
 }

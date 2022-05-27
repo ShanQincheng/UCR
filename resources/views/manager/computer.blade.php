@@ -1,5 +1,9 @@
 @extends('layouts.app')
 @section('content')
+    @if (session('warningMsg'))
+        <div class="alert alert-warning"> {{session('warningMsg')}} </div>
+    @endif
+    
     <div class="container">
         <p class="fs-1 fw-bolder text-center">Computer Management</p>
 
