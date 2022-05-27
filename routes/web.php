@@ -51,7 +51,7 @@ Route::post('manager/computers/add',
 Route::post('manager/computers/edit/{ID}',
     [ManagerController::class, 'editComputer']
 )->middleware(['auth']) -> name('edit.computers.manager');
-Route::delete('manager/computers/delete/{ID}',
+Route::delete('manager/computers/{ID}',
     [ManagerController::class, 'deleteComputer']
 )->middleware(['auth']) -> name('delete.computers.manager');
 Route::get('manager/staff/users',

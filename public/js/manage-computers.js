@@ -12,13 +12,14 @@ window.deletePC = function (pcID) {
   });
   $.ajax({
     type: 'Delete',
-    url: baseUrl + '/delete/' + pcID,
+    url: baseUrl + '/' + pcID,
     success: function success(msg) {
       console.log(msg);
       location.reload();
     },
-    error: function error(xhr, status, _error) {
-      alert(xhr);
+    error: function error(msg) {
+      console.log(msg);
+      location.reload();
     }
   });
 };
