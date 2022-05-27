@@ -8,14 +8,15 @@ window.deletePC = function (pcID) {
 
     $.ajax({
         type:'Delete',
-        url: baseUrl + '/delete/' + pcID,
+        url: baseUrl + '/' + pcID,
         success:function(msg) {
             console.log(msg);
             location.reload();
         },
 
-        error: function(xhr, status, error){
-            alert(xhr);
+        error: function(msg){
+            console.log(msg);
+            location.reload();
         }
     });
 }
