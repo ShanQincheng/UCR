@@ -53,6 +53,12 @@ class RegisteredUserController extends Controller
             'privilege_id' => $customerPrivilegeID->id,   // default customer authorisation
         ]);
 
+        // if new user claim himself a student
+        if ($request->input('student_confirmation') == "on") {
+            $studentPrivilegeID = Privilege::where('name', 'student')->first();
+            $user->update(['privilege_id' => $studentPrivilegeID->id]);
+        }
+
         // automatically create an account when a new user sign himself up
         $defaultBalance = 0;
         Account::create([
