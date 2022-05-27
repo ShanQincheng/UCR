@@ -19,6 +19,7 @@
                             <th scope="col">Rental Return Time</th>
                             <th scope="col">Insurance Payment</th>
                             <th scope="col">Total Payment</th>
+                            <th scope="col">Penalty</th>
                             <th scope="col">Status</th>
                         </tr>
                         </thead>
@@ -42,8 +43,9 @@
                                         <p class="text-warning">LeaseHolder Not Claim Return Yet</p>
                                     @endif
                                 </td>
-                                <td>{{$renting->insurance}}</td>
-                                <td>{{$renting->fee}}</td>
+                                <td>$ {{$renting->insurance}}</td>
+                                <td>$ {{$renting->fee}}</td>
+                                <td>$ {{$renting->penalty}}</td>
                                 <td>
                                     @if($renting->return_time == null)
                                         <span class="mt-3 badge rounded-pill text-bg-danger">Renting</span>

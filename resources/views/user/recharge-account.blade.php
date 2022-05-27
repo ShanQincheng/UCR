@@ -9,9 +9,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <label for="recharge-amount" class="mb-1">Top Up Amount</label>
-                    <input id="recharge-amount" name="recharge-amount" type="text" class="col-sm-12 form-control"
-                           value="">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">$</span>
+                        <input id="recharge-amount" name="recharge-amount" type="text" class="col-sm-12 form-control"
+                               aria-label="Amount (to the nearest dollar)" value="">
+                    </div>
 
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Recharge</button>
