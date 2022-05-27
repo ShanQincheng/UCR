@@ -9,7 +9,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="lease-id" value="{{$renting->lease_id}}">
+                    <input id="lease-id" type="hidden" name="lease-id" value="{{$renting->lease_id}}">
 
                     <div class="input-group mb-3">
                         <select class="form-select" aria-label="Default select example" name="damage">

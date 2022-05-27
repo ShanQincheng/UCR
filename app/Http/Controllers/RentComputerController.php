@@ -15,8 +15,16 @@ class RentComputerController extends Controller
     }
 
     public function rent(Request $request) {
-        $computerID = $request->input('computer-id', null);
         $period = $request->input('period', null);
+        if (! is_numeric($period)) {
+            return back()->with('warningMsg', 'Please choose your Rent Period');
+        }
+
+        $computerID = $request->input('computer-id', null);
+        if (! $this->inStock($computerID)) {
+            return back() -> with('warningMsg', 'No more stocks, already Rent out');
+        }
+
         $rent = $request->input('rent', null);
         $insurance = $request->input('insurance', null);
 
@@ -46,10 +54,7 @@ class RentComputerController extends Controller
         $newLease = $this->createLease(
             $userID, $computerID, $depositFee, $insuranceFee, $discount, $totalFee, $period);
         $this->decreaseAccountBalance($userAccount, $totalFee);
-        $inStock = $this->decreaseComputerStocks($computerID);
-        if (! $inStock) {
-            return back() -> with('warningMsg', 'No more stocks, already Sold out');
-        }
+        $this->decreaseComputerStocks($computerID);
 
         $pcDetail = Computer::find($computerID);
 
@@ -83,14 +88,17 @@ class RentComputerController extends Controller
         $account->update(['balance' => $balanceAfter]);
     }
 
-    protected function decreaseComputerStocks($computerID) {
+    protected function inStock($computerID) {
         $stocks = Computer::find($computerID)->stocks;
         if ($stocks <= 0) {
             return false;
         }
 
-        Computer::find($computerID)->decrement('stocks');
         return true;
+    }
+
+    protected function decreaseComputerStocks($computerID) {
+        Computer::find($computerID)->decrement('stocks');
     }
 
     public function costs($depositFee, $insuranceFee, $period, $rent, $discount) {
