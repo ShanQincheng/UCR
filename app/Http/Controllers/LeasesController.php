@@ -22,9 +22,7 @@ class LeasesController extends Controller
 
     public function rentalManagement()
     {
-        if (! Gate::allows('visit-manage-rental-page')) {
-            abort(403);
-        }
+        Gate::authorize('visit-manage-rental-page');
 
         $notConfirmedLeases = Lease::whereNull('staff_confirm')->get();
         $rentings = [];
