@@ -80,7 +80,7 @@ class ManagerController extends Controller
             ->get();
         $blackUsers = User::whereIn('id', $blackUserIDs)->get();
 
-        $privilegeCustomer = Privilege::select(['id', 'name'])->where('name', 'customer')->get();
+        $privilegeCustomer = Privilege::select(['id', 'name'])->whereIn('name', ['customer', 'student'])->get();
         $customers = User::whereIn('privilege_id', $privilegeCustomer->pluck('id'))->get();
 
         return view('manager.staff-user', [

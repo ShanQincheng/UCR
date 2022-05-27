@@ -3,7 +3,7 @@
     @if (session('warningMsg'))
         <div class="alert alert-warning"> {{session('warningMsg')}} </div>
     @endif
-    
+
     <div class="container">
         <p class="fs-1 fw-bolder text-center">Computer Management</p>
 
@@ -86,5 +86,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/manage-computers.js') }}"></script>
+    <script src="{{ asset('js/manage-computers.js?version=6') }}"></script>
 @endpush
