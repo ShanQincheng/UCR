@@ -18,3 +18,4 @@ mix.js('resources/js/app.js', 'public/js').postCss('resources/css/tw-app.css', '
 ]);
 
 mix.js('resources/js/manage-computers.js', 'public/js');
+mix.js('resources/js/manage-rental.js', 'public/js');
