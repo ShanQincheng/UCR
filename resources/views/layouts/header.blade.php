@@ -28,22 +28,38 @@
                             {{ Auth::user()->last_name.' '.Auth::user()->first_name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{route('user.account')}}">Account</a></li>
-                            <li><a class="dropdown-item" href="{{route('renting.customer')}}">Renting</a></li>
-                            <li><a class="dropdown-item" href="{{route('renting.manager')}}">Manager Rentals</a></li>
-                            <li><a class="dropdown-item" href="{{route('computers.manager')}}">Manager Computers</a></li>
-                            <li><a class="dropdown-item" href="{{route('users.staff.manager')}}">Staff Users Management</a></li>
-                            <li><a class="dropdown-item" href="{{route('users.admin.manager')}}">Admin Users Management</a></li>
-                            <li><a class="dropdown-item" href="{{route('dashboard.admin.manager')}}">Admin Dashboard</a></li>
-                            <li>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <a class="dropdown-item" href="{{route('logout')}}"
-                                       onclick='this.parentNode.submit(); return false;'>
-                                        Log Out
-                                    </a>
-                                </form>
-                            </li>
+                            @auth
+                                <li><a class="dropdown-item" href="{{route('user.account')}}">Account</a></li>
+                            @endauth
+                            @can('visit-return-rental-page')
+                                <li><a class="dropdown-item" href="{{route('renting.customer')}}">Returning the Rental</a></li>
+                            @endcan
+                            @can('visit-manage-rental-page')
+                                <li><a class="dropdown-item" href="{{route('renting.manager')}}">Manage Rentals</a></li>
+                            @endcan
+                            @can('visit-manage-computers-page')
+                                <li><a class="dropdown-item" href="{{route('computers.manager')}}">Manage Computers</a></li>
+                            @endcan
+                            @can('visit-staff-manage-users-page')
+                                <li><a class="dropdown-item" href="{{route('users.staff.manager')}}">Users Management</a></li>
+                            @endcan
+                            @can('visit-admin-manage-users-page')
+                                <li><a class="dropdown-item" href="{{route('users.admin.manager')}}">Users Management</a></li>
+                            @endcan
+                            @can('visit-admin-dashboard-page')
+                                <li><a class="dropdown-item" href="{{route('dashboard.admin.manager')}}">Admin Dashboard</a></li>
+                            @endcan
+                            @auth
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <a class="dropdown-item" href="{{route('logout')}}"
+                                           onclick='this.parentNode.submit(); return false;'>
+                                            Log Out
+                                        </a>
+                                    </form>
+                                </li>
+                            @endauth
                         </ul>
                     </li>
                 </ul>

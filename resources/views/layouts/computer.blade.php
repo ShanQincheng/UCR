@@ -19,7 +19,7 @@
                          class="card-img-top" alt = "{{$pc->name}}">
                     <div class="card-body">
                         <h5 class="card-title">{{$pc->name}}</h5>
-                        <p class="card-text">{{$pc->name}}.{{$pc->os}}.{{$pc->DISP_size}}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">{{$pc->brand}}</h6>
                         <p class="card-text">{{$pc->rent}} / hour</p>
                         <a href="{{route('detail.rental').'?ID='.$pc->id}}" class="btn btn-dark stretched-link">
                             View Details

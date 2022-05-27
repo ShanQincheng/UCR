@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Privilege;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +27,34 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::before(function (User $user) {
+            if ($user->isSuperAdmin()) {
+                return true;
+            }
+        });
+
+        Gate::define('visit-return-rental-page', function (User $user) {
+           return $user->isCustomer();
+        });
+
+        Gate::define('visit-manage-rental-page', function (User $user) {
+            return $user->isStaffOrAdmin();
+        });
+
+        Gate::define('visit-manage-computers-page', function (User $user) {
+            return $user->isStaffOrAdmin();
+        });
+
+        Gate::define('visit-staff-manage-users-page', function (User $user) {
+            return $user->isStaff();
+        });
+
+        Gate::define('visit-admin-manage-users-page', function (User $user) {
+            return $user->isAdmin();
+        });
+
+        Gate::define('visit-admin-dashboard-page', function (User $user) {
+            return $user->isAdmin();
+        });
     }
 }

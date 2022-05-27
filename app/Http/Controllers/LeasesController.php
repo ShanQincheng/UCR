@@ -7,6 +7,7 @@ use App\Models\Lease;
 use App\Models\Computer;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class LeasesController extends Controller
 {
@@ -21,6 +22,10 @@ class LeasesController extends Controller
 
     public function rentalManagement()
     {
+        if (! Gate::allows('visit-manage-rental-page')) {
+            abort(403);
+        }
+
         $notConfirmedLeases = Lease::whereNull('staff_confirm')->get();
         $rentings = [];
 

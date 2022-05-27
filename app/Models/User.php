@@ -106,4 +106,39 @@ class User extends Authenticatable
     public function leases() {
         return $this->hasMany(Lease::class, 'user_id');
     }
+
+    public function isSuperAdmin() {
+        $superAdminPrivilegeID = Privilege::select('id')
+            ->where('name', 'super-admin')->get();
+
+        return $superAdminPrivilegeID->contains('id', $this->privilege_id);
+    }
+
+    public function isCustomer() {
+        $customerPrivilegeIDs = Privilege::select('id')
+            ->whereIn('name', ['student', 'customer'])->get();
+
+        return $customerPrivilegeIDs->contains('id', $this->privilege_id);
+    }
+
+    public function isStaffOrAdmin() {
+        $staffAndAdminPrivilegeIDs = Privilege::select('id')
+            ->whereIn('name', ['staff', 'admin'])->get();
+
+        return $staffAndAdminPrivilegeIDs->contains('id', $this->privilege_id);
+    }
+
+    public function isStaff() {
+        $staffPrivilegeID = Privilege::select('id')
+            ->where('name', 'staff')->get();
+
+        return $staffPrivilegeID->contains('id', $this->privilege_id);
+    }
+
+    public function isAdmin() {
+        $adminPrivilegeID = Privilege::select('id')
+            ->where('name', 'admin')->get();
+
+        return $adminPrivilegeID->contains('id', $this->privilege_id);
+    }
 }

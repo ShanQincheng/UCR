@@ -10,10 +10,15 @@ use App\Models\User;
 use App\Models\Wines;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ManagerController extends Controller
 {
     public function index() {
+        if (! Gate::allows('visit-manage-computers-page')) {
+            abort(403);
+        }
+
         $computers = Computer::all();
 
         return view('manager.computer', [
@@ -63,6 +68,10 @@ class ManagerController extends Controller
     }
 
     public function staffUserManagement() {
+        if (! Gate::allows('visit-staff-manage-users-page')) {
+            abort(403);
+        }
+
         $blackUserIDs = BlackHistory::selectRaw('user_id')
             ->groupBy('user_id')
             ->having(DB::raw('count(*)'), '>', 3)
@@ -79,6 +88,10 @@ class ManagerController extends Controller
     }
 
     public function adminUserManagement() {
+        if (! Gate::allows('visit-admin-manage-users-page')) {
+            abort(403);
+        }
+
         $blackUserIDs = BlackHistory::selectRaw('user_id')
             ->groupBy('user_id')
             ->having(DB::raw('count(*)'), '>', 3)
@@ -128,6 +141,10 @@ class ManagerController extends Controller
     }
 
     public function adminDashboard() {
+        if (! Gate::allows('visit-admin-dashboard-page')) {
+            abort(403);
+        }
+
         $privilegeStudent = Privilege::select('id')->where('name', 'student')->first();
         $privilegeStaff = Privilege::select('id')->where('name', 'customer')->first();
         $privilegeAdmin = Privilege::select('id')->where('name', 'admin')->first();
