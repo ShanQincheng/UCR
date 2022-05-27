@@ -49,12 +49,14 @@
                                     <input type="hidden" name="lease-id" value="{{$renting->lease_id}}">
                                     @if($renting->return_time != null)
                                         <button type="submit" class="btn btn-success"
-                                                data-bs-toggle="modal" data-bs-target="#endingLeaseModal">
+                                                data-bs-toggle="modal" data-bs-target="#endingLeaseModal"
+                                                value="{{$renting->lease_id}}" onclick="endingLease(this.value)">
                                             Confirm Return
                                         </button>
                                     @else
                                         <button type="submit" class="btn btn-warning"
-                                                data-bs-toggle="modal" data-bs-target="#endingLeaseModal">
+                                                data-bs-toggle="modal" data-bs-target="#endingLeaseModal"
+                                                value="{{$renting->lease_id}}" onclick="endingLease(this.value)">
                                             Confirm Return
                                         </button>
                                     @endif
@@ -67,3 +69,7 @@
         @include('manager.ending-lease-modal')
     @endif
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/manage-rental.js?version=1') }}"></script>
+@endpush

@@ -91,6 +91,9 @@ class LeasesController extends Controller
             'balance' =>  $balanceAfter,
         ]);
 
+        // increase stocks
+        Computer::find($lease->computer_id)->increment('stocks');
+
         return redirect(route('renting.manager'));
     }
 }

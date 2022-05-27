@@ -15,7 +15,12 @@
                 <p class="fw-bolder pt-2">
                     ${{$pcDetail->rent}} / hour + $50 mandatory deposit fee + $10 optional insurance
                 </p>
-                <p class="fw-light pt-1">More than {{$pcDetail->stocks}} available</p>
+                @if($pcDetail->stocks > 0)
+                    <p class="fw-light pt-1">More than {{$pcDetail->stocks}} available</p>
+                @else
+                    <p class="fw-bold pt-1 text-danger">Rent Out</p>
+                @endif
+
 
                 @auth
                     <form class="row row-cols-lg-auto g-3 align-items-center my-5"
