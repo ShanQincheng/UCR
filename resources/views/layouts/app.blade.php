@@ -15,13 +15,13 @@
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C25WJ8QQKS"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-72ETSGHGG7"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'G-C25WJ8QQKS');
+        gtag('config', 'G-72ETSGHGG7');
     </script>
 
     <title>UTAS Computer Rental Services</title>
