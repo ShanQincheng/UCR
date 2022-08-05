@@ -14,6 +14,7 @@
                      Please note that you should also add the aria-current attribute on the active .nav-link.-->
                 <a class="nav-link" aria-current="page" href="{{route('home')}}">Home</a>
                 <a class="nav-link" aria-current="page" href="{{route('index.rental')}}">Rental</a>
+                <a class="nav-link" aria-current="page" href="{{route('email.send')}}">Email</a>
             </div>
         </div>
     </div>

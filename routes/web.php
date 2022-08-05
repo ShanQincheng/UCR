@@ -8,6 +8,7 @@ use \App\Http\Controllers\LeasesController;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\AccountsController;
 use \App\Http\Controllers\ManagerController;
+use \App\Http\Controllers\EmailController;
 
 
 /*
@@ -22,6 +23,12 @@ use \App\Http\Controllers\ManagerController;
 */
 
 Route::get('/', [ComputersController::class, 'index']) -> name('home');
+
+Route::get('email/send', function (){
+    return view('email.send', ['sentInfo' => '']);
+});
+
+Route::post('email/send', [EmailController::class, 'sendEmail']) -> name('email.send');
 
 Route::get('rental', [ComputersController::class, 'show']) ->name('index.rental');
 Route::get('rental/detail', [ComputersController::class, 'detail']) -> name('detail.rental');
