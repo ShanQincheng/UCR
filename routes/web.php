@@ -24,6 +24,10 @@ use \App\Http\Controllers\EmailController;
 
 Route::get('/', [ComputersController::class, 'index']) -> name('home');
 
+Route::get('encryption', function (){
+    return view('encryption.encryption');
+});
+
 Route::get('email/send', function (){
     return view('email.send', ['sentInfo' => '']);
 });
