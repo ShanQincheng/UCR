@@ -25,6 +25,10 @@ use \App\Http\Controllers\EmailController;
 
 Route::get('/', [ComputersController::class, 'index']) -> name('home');
 
+Route::get('login-two-factor', function (){
+   return view('auth.two-factor-authenticate');
+})->name('login-two-factor');
+
 Route::get('encryption', function (){
     return view('encryption.encryption');
 });

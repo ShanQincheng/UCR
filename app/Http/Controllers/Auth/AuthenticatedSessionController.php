@@ -31,16 +31,17 @@ class AuthenticatedSessionController extends Controller
      */
     public function login(Request $request, $user_id, $login_token)
     {
-        $user = User::find(intval($user_id));
+        if (Auth::check()) {
+            return view(RouteServiceProvider::HOME);
+        }
 
-        if (strcmp($user->remember_token, $login_token) !== 0) {
+        $user = User::find($user_id);
+
+        if (strcmp($user->login_token, $login_token) !== 0) {
             return view('auth.login')->with('warningMsg', 'Token Expired');
         }
 
-        //set an existing user instance as the currently authenticated user
-        $this->removeTokenFromDBAfterASuccessfullyLogin($user);
-
-        Auth::login($user);
+        Auth::loginUsingId($user_id);
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
@@ -54,15 +55,15 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         $request->authenticate();
-        $request->session()->regenerate();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
 
         // only do two factor authenticate after successfully authenticate
         $this->twoFactorLoginTokenGenerate($request);
 
-        return view('auth.two-factor-authenticate');
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login-two-factor');
     }
 
     /**
@@ -73,11 +74,16 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
+        $modelTypeUser = User::find(Auth::user()->id);
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        //set an existing user instance as the currently authenticated user
+        $this->removeTokenFromDBAfterASuccessfullyLogin($modelTypeUser);
 
         return redirect('/');
     }
@@ -90,7 +96,7 @@ class AuthenticatedSessionController extends Controller
         $user = User::whereEmail($request->input("email"))->first();
 
         $token = uniqid();
-        $user->update(['remember_token' => $token]);
+        $user->update(['login_token' => $token]);
 
         // https://131.217.173.113/public/index.php/login/user-id/token
         $loginLink = "https://131.217.173.113/public/index.php/login/" . $user->id . '/' . $token;
@@ -102,6 +108,6 @@ class AuthenticatedSessionController extends Controller
      *
      * */
     private function removeTokenFromDBAfterASuccessfullyLogin(User $user) {
-        $user->update(['remember_token' => '']);
+        $user->update(['login_token' => '']);
     }
 }
