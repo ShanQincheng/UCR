@@ -16,9 +16,10 @@ class DemoMail extends Mailable
      *
      * @return void
      */
-    public function __construct($mailData)
+    public function __construct($username, $loginLink)
     {
-        $this->mailData = $mailData;
+        $this->username = $username;
+        $this->loginLink = $loginLink;
     }
 
     /**
@@ -28,6 +29,12 @@ class DemoMail extends Mailable
      */
     public function build()
     {
-        return $this->view('email.send');
+        //return $this->view('email.send');
+        return $this->from('zhe4@utas.edu.au', 'KIT514')
+                     ->view('auth.two-factor-email')
+                     ->with([
+                        'loginLink' => $this->loginLink,
+                         'username' => $this->username,
+                     ]);
     }
 }

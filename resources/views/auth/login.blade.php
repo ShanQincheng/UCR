@@ -10,6 +10,10 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
+        @isset ($warningMsg)
+            <div class="alert alert-warning"> {{ $warningMsg }} </div>
+        @endif
+
         <form method="POST" action="{{route('login')}}">
             @csrf
             <!-- Email Address -->

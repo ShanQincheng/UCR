@@ -49,7 +49,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Lease[] $leases
  * @property-read int|null $leases_count
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -65,6 +65,7 @@ class User extends Authenticatable
         'mobile',
         'password',
         'privilege_id',
+        'remember_token',
     ];
 
     /**
